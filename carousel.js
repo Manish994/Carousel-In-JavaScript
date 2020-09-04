@@ -24,7 +24,7 @@ nextButton.addEventListener("click", function () {
   const currentSlide = carousel.querySelector(".active");
   const nextSlide = currentSlide.nextElementSibling;
   moveToSlide(carousel, currentSlide, nextSlide);
-  hideButton(nextSlide,slides);
+  hideButton(nextSlide, slides);
 });
 
 //Select previous button.
@@ -35,7 +35,7 @@ previousButton.addEventListener("click", function () {
   const currentSlide = carousel.querySelector(".active");
   const previousSlide = currentSlide.previousElementSibling;
   moveToSlide(carousel, currentSlide, previousSlide);
-  hideButton(previousSlide,slides);
+  hideButton(previousSlide, slides);
 });
 
 //Function moveToSlide
@@ -67,5 +67,48 @@ function hideButton(targetSlide, slides) {
     //if none of the above is true, then next button and previous button must be visible
     nextButton.classList.remove("hide");
     previousButton.classList.remove("hide");
+  }
+}
+
+//Select the nav
+const nav = document.querySelector(".nav");
+
+//Select all the dots from nav
+//and convert into array using spread operator
+const dots = [...nav.children];
+
+//On dot click
+nav.addEventListener("click", function (e) {
+  //if we don't click on dot, we exit
+  if (e.target === nav) {
+    return;
+  }
+  //Select the clicked dot
+  const targetDot = e.target;
+
+  //Finding the index number of dot, So we target the right slide
+  let targetDotIndex = findIndex(targetDot, dots);
+
+  //Select the target Slide
+  const targetSlide = slides[targetDotIndex];
+
+  //Select the current Slide
+  const currentSlide = carousel.querySelector(".active");
+  moveToSlide(carousel, currentSlide, targetSlide);
+
+  //Select current dot
+  const currentDot = nav.querySelector(".active");
+  toggleActive(currentDot, targetDot);
+
+  //Hide Button
+  hideButton(targetSlide, slides);
+});
+
+//finding the indexNumber of an item, which exists inside on array of items
+function findIndex(item, items) {
+  for (let index = 0; index < items.length; index++) {
+    if (item === items[index]) {
+      return index;
+    }
   }
 }
