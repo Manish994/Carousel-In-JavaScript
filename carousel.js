@@ -25,6 +25,10 @@ nextButton.addEventListener("click", function () {
   const nextSlide = currentSlide.nextElementSibling;
   moveToSlide(carousel, currentSlide, nextSlide);
   hideButton(nextSlide, slides);
+  const currentDot = nav.querySelector(".active");
+  //Toggle nav dot
+  const targetDot = currentDot.nextElementSibling;
+  toggleActive(currentDot, targetDot);
 });
 
 //Select previous button.
@@ -36,6 +40,10 @@ previousButton.addEventListener("click", function () {
   const previousSlide = currentSlide.previousElementSibling;
   moveToSlide(carousel, currentSlide, previousSlide);
   hideButton(previousSlide, slides);
+  //Toggle nav dot
+  const currentDot=nav.querySelector(".active");
+  const targetDot=currentDot.previousElementSibling;
+  toggleActive(currentDot,targetDot);
 });
 
 //Function moveToSlide
