@@ -23,10 +23,7 @@ const nextButton = document.querySelector(".right-btn");
 nextButton.addEventListener("click", function () {
   const currentSlide = carousel.querySelector(".active");
   const nextSlide = currentSlide.nextElementSibling;
-  const position = nextSlide.style.left;
-  carousel.style.transform = `translateX(-${position})`;
-  currentSlide.classList.remove("active");
-  nextSlide.classList.add("active");
+  moveToSlide(carousel, currentSlide, nextSlide);
 });
 
 //Select previous button.
@@ -36,8 +33,18 @@ const previousButton = document.querySelector(".left-btn");
 previousButton.addEventListener("click", function () {
   const currentSlide = carousel.querySelector(".active");
   const previousSlide = currentSlide.previousElementSibling;
-  const position = previousSlide.style.left;
-  carousel.style.transform = `translateX(-${position})`;
-  currentSlide.classList.remove("active");
-  previousSlide.classList.add("active");
+  moveToSlide(carousel, currentSlide, previousSlide);
 });
+
+//Function moveToSlide
+function moveToSlide(carousel, currentSlide, targetSlide) {
+  const position = targetSlide.style.left;
+  carousel.style.transform = `translateX(-${position})`;
+  toggleActive(currentSlide, targetSlide);
+}
+
+//Function toggle active class
+function toggleActive(current, target) {
+  current.classList.remove("active");
+  target.classList.add("active");
+}
